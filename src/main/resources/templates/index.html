@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" lang="en">
+<head th:replace="fragments/layout :: head"></head>
+<body>
+
+<nav class="navbar navbar-dark bg-dark justify-content-between">
+    <a class="navbar-brand">Navbar</a>
+    <span class="text">Tervetuloa, Käyttäjä X</span>
+    <span class="text">Seinä</span>
+    <span class="text">Profiili</span>
+    <span class="text">Ilmoitustaulu</span>
+    <form class="form-inline">
+        <input class="form-control mr-sm-2" type="search" placeholder="Anna käyttäjänimi" aria-label="Search">
+        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Etsi käyttäjää</button>
+    </form>
+</nav>
+
+    <h3>Tervetuloa, käyttäjä!</h3>
+
+
+    <div class="container">
+        <p>Lisää profiilikuva</p>
+        <div class="row">
+            <div class="col-6">
+                <img th:src="@{/doge2.jpeg}" class="rounded img-thumbnail" alt="Profile picture"/>
+            </div>
+            <div class="col-6" id="skills">
+                <table>
+                    <tr th:each="skill : ${skills}">
+                        <td th:text="${skill.skillName}"></td>
+                    </tr>
+
+                </table>
+            <form th:action="@{/}" method="post">
+                <input type="text" name="addedSkill" />
+                <input type="submit" name="submit" value="Add skill"/>
+            </form>
+            </div>
+        </div>
+
+
+    <p>Sovellukselta odotetut ominaisuudet:
+
+        Käyttäjien rekisteröityminen
+        Käyttäjä rekisteröityy sovellukseen kirjaamalla sovellukseen käyttäjätunnuksen, salasanan sekä nimen. Tämän lisäksi käyttäjältä kysytään profiilin näyttämisessä käytettävää merkkijonoa, jonka perusteella käyttäjän sivu voidaan löytää sovelluksesta. Esim. “https://sovellus.net/kayttajat/profiili-merkkijono”
+    </p>
+
+    <p>
+        Käyttäjien etsiminen ja yhdistäminen
+        Käyttäjä voi etsiä muita käyttäjiä nimen perusteella. Käyttäjä voi lisätä yhteyksiinsä toisen henkilön. Yhteyttä ei kuitenkaan hyväksytä ellei toinen osapuoli hyväksy sitä.
+    </p>
+    <p>
+        Yhteydet
+        Käyttäjä voi tarkastella omia yhteyksiään. Yhteyden ohessa näytetään toisen henkilön nimi joka toimii linkkinä henkilön profiiliin sekä painikkeet yhteyden hyväksyntään ja hylkäykseen. Mikäli yhteys on jo muodostettu, on tilalla painike yhteyden katkaisemiseksi.
+    </p>
+    <p>
+        Profiilikuva
+        Käyttäjä voi määritellä profiilikuvan.
+    </p>
+    <p>
+        Henkilökohtainen etusivu
+        Jokaisella käyttäjällä on henkilökohtainen "seinä", joka sisältää yllä henkilön nimen sekä mahdollisesti määritellyn profiilikuvan. Tämän lisäksi seinällä on lista taidoista joita henkilöllä on. Käyttäjä voi lisätä taitoja omalta sivultaan. Muut käyttäjät voivat käydä kehumassa toisen käyttäjän taitoja hänen etusivullaan - tällöin taidon vieressä oleva kehujen lukumäärä kasvaa. Taidoista korostetaan 3 kaikkein kehuttua taitoa, ja loput ovat erillään.
+    </p>
+
+    <p>
+        Apuresursseja:
+        Apumateriaalia tietokannassa olevan ajan käsittelyyn: https://web-palvelinohjelmointi-20.mooc.fi/ekstra/ajan-kasittely-tietokannassa</p>
+    </div>
+
+<div class="footer">
+    <div class="container">
+        <span class="text-muted">Footer</span>
+    </div>
+</div>
+
+</body>
+</html>
