@@ -14,7 +14,22 @@
         <label for="username">Profile name (will be shown in URL</label>
         <input type="text" name="accountName" id="accountName"/>
         <input type="submit" value="Add account"/>
-
     </form>
+
+    <h3>Users:</h3>
+    <ul>
+        <li th:each="account : ${accounts}">
+            <img th:src="@{/account_box_grey_48x48.png}" class="rounded img-thumbnail" alt="Profile picture"/>
+            <a th:href="@{/accounts/{accountName}(accountName=${account.accountName})}" th:text="${account.realName}" ></a>
+            <form th:action="@{/accounts/request}" method="post">
+                <input type="hidden" name="addedId" th:value="${account.id}"/>
+                <input type="submit" value="Add as a contact"/>
+            </form>
+            <p th:text="${account.id}"></p>
+        </li>
+    </ul>
+
+
+
 </body>
 </html>

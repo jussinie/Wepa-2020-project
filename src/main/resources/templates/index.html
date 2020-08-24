@@ -19,11 +19,22 @@
 
 
     <div class="container">
-        <p>Lisää profiilikuva</p>
         <div class="row">
             <div class="col-6">
-                <img th:src="@{/doge2.jpeg}" class="rounded img-thumbnail" alt="Profile picture"/>
+                <h3 th:text="${account.realName}"></h3>
+                <!--
+                <div th:if="${profilePic.userId} == null">
+                    <img th:src="@{/account_box_grey_192x192.png}" class="rounded img-thumbnail" alt="Profile picture"/>
+                </div>
+                <div th:if="${profilePic.userId} != null">
+                    <img th:src="@{/doge2.jpeg}" class="rounded img-thumbnail" alt="Profile picture"/>
+                </div> -->
+                <p>Päivitä profiilikuva</p>
+                <form th:action="@{/profilePictures}" method="post" enctype="multipart/form-data">
+                    <input type="file" name="file" />
+                    <input type="submit" value="Add picture!" /></form>
             </div>
+
             <div class="col-6" id="skills">
                 <table>
                     <tr th:each="skill : ${skills}">
@@ -67,11 +78,12 @@
         Apumateriaalia tietokannassa olevan ajan käsittelyyn: https://web-palvelinohjelmointi-20.mooc.fi/ekstra/ajan-kasittely-tietokannassa</p>
     </div>
 
-<div class="footer">
+<footer class="fixed-bottom bg-light">
     <div class="container">
-        <span class="text-muted">Footer</span>
+        <p>Footer</p>
+        <span class="text-muted">Place sticky footer content here.</span>
     </div>
-</div>
+</footer>
 
 </body>
 </html>

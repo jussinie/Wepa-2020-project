@@ -15,7 +15,7 @@ public class ProfilePicture extends AbstractPersistable<Long> {
 
     private String name;
     private String mediaType;
-    private Long size;
+    private Long contentLength;
     private Long userId;
     @Lob
     @Basic(fetch = FetchType.LAZY)

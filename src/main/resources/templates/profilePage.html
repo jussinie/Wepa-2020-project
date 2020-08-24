@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" lang="en">
+<head th:replace="fragments/layout :: head"></head>
+<body>
+
+<nav class="navbar navbar-dark bg-dark justify-content-between">
+    <a class="navbar-brand">Navbar</a>
+    <span class="text">Tervetuloa, Käyttäjä X</span>
+    <span class="text">Seinä</span>
+    <span class="text">Profiili</span>
+    <span class="text">Ilmoitustaulu</span>
+    <form class="form-inline">
+        <input class="form-control mr-sm-2" type="search" placeholder="Anna käyttäjänimi" aria-label="Search">
+        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Etsi käyttäjää</button>
+    </form>
+</nav>
+
+    <h3 th:text="${account.realName}"></h3>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-6">
+                <h3 th:text="${account.realName}"></h3>
+                <div th:if="${profilePic.userId} == null">
+                    <img th:src="@{/account_box_grey_192x192.png}" class="rounded img-thumbnail" alt="Profile picture"/>
+                </div>
+                <div th:if="${profilePic.userId} != null">
+                    <img th:src="@{/doge2.jpeg}" class="rounded img-thumbnail" alt="Profile picture"/>
+                </div>
+            </div>
+
+            <div class="col-6" id="skills">
+                <table>
+                    <tr th:each="skill : ${skills}">
+                        <td th:text="${skill.skillName}"></td>
+                    </tr>
+
+                </table>
+            </div>
+        </div>
+
+<footer class="fixed-bottom bg-light">
+    <div class="container">
+        <p>Footer</p>
+        <span class="text-muted">Place sticky footer content here.</span>
+    </div>
+</footer>
+
+</body>
+</html>

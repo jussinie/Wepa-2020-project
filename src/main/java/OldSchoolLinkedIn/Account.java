@@ -27,5 +27,9 @@ public class Account extends AbstractPersistable<Long> {
     private List<PostComment> postComments = new ArrayList<>();
     @OneToMany(mappedBy = "account")
     private List<PostLike> postLikes = new ArrayList<>();
+    @OneToMany(mappedBy = "accountAdded")
+    private List<PendingRequest> accountsAdded = new ArrayList<>();
+    @OneToMany(mappedBy = "accountAddedBy")
+    private List<PendingRequest> accountsAddedBy = new ArrayList<>();
 
 }
