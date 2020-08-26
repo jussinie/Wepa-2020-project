@@ -1,34 +1,25 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5" lang="en">
 <head th:replace="fragments/layout :: head"></head>
 <body>
 
-<nav class="navbar navbar-dark bg-dark justify-content-between">
-    <a class="navbar-brand">Navbar</a>
-    <span class="text">Tervetuloa, Käyttäjä X</span>
-    <span class="text">Seinä</span>
-    <span class="text">Profiili</span>
-    <span class="text">Ilmoitustaulu</span>
-    <form class="form-inline">
-        <input class="form-control mr-sm-2" type="search" placeholder="Anna käyttäjänimi" aria-label="Search">
-        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Etsi käyttäjää</button>
-    </form>
-</nav>
+<div th:replace="fragments/layout :: navi"></div>
 
     <h3>Tervetuloa, käyttäjä!</h3>
-
 
     <div class="container">
         <div class="row">
             <div class="col-6">
                 <h3 th:text="${account.realName}"></h3>
-                <!--
-                <div th:if="${profilePic.userId} == null">
+                <div sec:authorize="isAuthenticated()">
+                    Authenticated as <span sec:authentication="name"></span></div>
+
+                <div th:if="${profilePic} == null">
                     <img th:src="@{/account_box_grey_192x192.png}" class="rounded img-thumbnail" alt="Profile picture"/>
                 </div>
-                <div th:if="${profilePic.userId} != null">
-                    <img th:src="@{/doge2.jpeg}" class="rounded img-thumbnail" alt="Profile picture"/>
-                </div> -->
+                <div th:if="${profilePic} != null">
+                    <img th:src="@{/profilePictures/{id}/content(id=${profilePic.id})}" class="rounded img-thumbnail" alt="Profile picture"/>
+                </div>
                 <p>Päivitä profiilikuva</p>
                 <form th:action="@{/profilePictures}" method="post" enctype="multipart/form-data">
                     <input type="file" name="file" />
@@ -49,7 +40,18 @@
             </div>
         </div>
 
+        <!--
+            <p>Your pending requests:</p>
+            <table>
+                <tr th:each="request : ${requests}">
+                    <td th:text="${request.accountAdded}"></td>
+                </tr>
+            </table> -->
 
+
+        <form th:action="@{/logout}" method="POST">
+            <input type="submit" value="Logout"></input>
+        </form>
     <p>Sovellukselta odotetut ominaisuudet:
 
         Käyttäjien rekisteröityminen

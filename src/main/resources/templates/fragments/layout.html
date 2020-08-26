@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5" lang="en">
 <head th:fragment="head">
     <meta charset="UTF-8">
     <title>Index page</title>
@@ -8,6 +8,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
 </head>
 <body>
+
+<div th:fragment="navi">
+    <nav class="navbar navbar-ligh justify-content-between" style="background-color: #e3f2fd;">
+        <a class="navbar-brand">Navbar</a>
+        <span class="text">Tervetuloa, Käyttäjä X</span>
+        <span class="text">Seinä</span>
+        <span class="text">Profiili</span>
+        <span class="text">Ilmoitustaulu</span>
+        <form class="form-inline">
+            <input class="form-control mr-sm-2" type="search" placeholder="Anna käyttäjänimi" aria-label="Search">
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Etsi käyttäjää</button>
+        </form>
+    </nav>
+</div>
 
 </body>
 </html>

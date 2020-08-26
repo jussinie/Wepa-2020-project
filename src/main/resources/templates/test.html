@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5" lang="en">
+<head th:replace="fragments/layout :: head"></head>
+<body>
+
+<div th:replace="fragments/layout :: navi"></div>
+
+    <p>Your pending requests:</p>
+    <table>
+        <tr th:each="request : ${requests}">
+            <td th:text="${request.accepted}"></td>
+        </tr>
+    </table>
+
+
+</body>
+</html>

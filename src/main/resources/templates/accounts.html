@@ -3,6 +3,9 @@
 <head th:replace="fragments/layout :: head"></head>
 
 <body>
+
+<div th:replace="fragments/layout :: navi"></div>
+
     <p>Add account</p>
     <form th:action="@{/accounts}" method="post">
         <label for="username">Username</label>
