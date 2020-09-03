@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5" lang="en">
+    <head th:replace="fragments/layout :: head(title='Main page')"></head>
+    <body>
+    <div th:replace="fragments/layout :: navi"></div>
+
+    <p>Log in!</p>
+    <p>Don't have account yet? Add account here:</p>
+    <form th:action="@{/registration}" method="post">
+        <label for="username">Username</label>
+        <input type="text" name="username" id="username"/>
+        <label for="username">Password</label>
+        <input type="password" name="password" id="password"/>
+        <label for="username">Real name</label>
+        <input type="text" name="realName" id="realName"/>
+        <label for="username">Profile name (will be shown in URL</label>
+        <input type="text" name="accountName" id="accountName"/>
+        <input type="submit" value="Add account"/>
+    </form>
+    </body>
+</html>

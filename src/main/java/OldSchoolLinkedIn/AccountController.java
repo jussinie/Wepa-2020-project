@@ -29,6 +29,12 @@ public class AccountController {
     @Autowired
     PasswordEncoder passwordEncoder;
 
+    @Autowired
+    SkillRepository skillRepository;
+
+    @Autowired
+    AuthenticationService authenticationService;
+
     @GetMapping("/accounts")
     public String showAccounts(Model model) {
         model.addAttribute("accounts", accountService.list());
@@ -36,7 +42,7 @@ public class AccountController {
         return "accounts";
     }
 
-    @PostMapping("/accounts")
+    @PostMapping("/registration")
     public String addAccount(@RequestParam String username, @RequestParam String password, @RequestParam String realName, @RequestParam String accountName) {
         //Tänhän voisi tehdä sillä modelilla!
         accountRepository.save(new Account(username, passwordEncoder.encode(password), realName, accountName, new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), new ArrayList<>()));
@@ -47,6 +53,7 @@ public class AccountController {
     public String showAccount(Model model, @PathVariable String accountName) {
         model.addAttribute("account", accountRepository.findByAccountName(accountName));
         model.addAttribute("profilePic", profilePictureRepository.getOne(Long.valueOf(3)));
+        model.addAttribute("skills", skillRepository.findByAccountId(accountRepository.findByAccountName(accountName).getId()));
         return "profilePage";
     }
 

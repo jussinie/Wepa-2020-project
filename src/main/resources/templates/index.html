@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5" lang="en">
-<head th:replace="fragments/layout :: head"></head>
+<head th:replace="fragments/layout :: head(title='Main page')"></head>
 <body>
 
 <div th:replace="fragments/layout :: navi"></div>
@@ -54,8 +54,6 @@
         </form>
     <p>Sovellukselta odotetut ominaisuudet:
 
-        Käyttäjien rekisteröityminen
-        Käyttäjä rekisteröityy sovellukseen kirjaamalla sovellukseen käyttäjätunnuksen, salasanan sekä nimen. Tämän lisäksi käyttäjältä kysytään profiilin näyttämisessä käytettävää merkkijonoa, jonka perusteella käyttäjän sivu voidaan löytää sovelluksesta. Esim. “https://sovellus.net/kayttajat/profiili-merkkijono”
     </p>
 
     <p>

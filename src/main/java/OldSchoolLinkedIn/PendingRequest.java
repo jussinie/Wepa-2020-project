@@ -17,11 +17,11 @@ import javax.persistence.*;
 public class PendingRequest extends AbstractPersistable<Long> {
 
 
+    @JsonIgnore
     @ManyToOne
-    @JsonManagedReference
     private Account accountAdded;
+    @JsonIgnore
     @ManyToOne
-    @JsonManagedReference
     private Account accountAddedBy;
     private boolean accepted;
 

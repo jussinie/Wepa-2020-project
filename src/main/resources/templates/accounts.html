@@ -1,23 +1,12 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" lang="en">
-<head th:replace="fragments/layout :: head"></head>
+<head th:replace="fragments/layout :: head(title='Accounts')"></head>
 
 <body>
 
 <div th:replace="fragments/layout :: navi"></div>
 
-    <p>Add account</p>
-    <form th:action="@{/accounts}" method="post">
-        <label for="username">Username</label>
-        <input type="text" name="username" id="username"/>
-        <label for="username">Password</label>
-        <input type="password" name="password" id="password"/>
-        <label for="username">Real name</label>
-        <input type="text" name="realName" id="realName"/>
-        <label for="username">Profile name (will be shown in URL</label>
-        <input type="text" name="accountName" id="accountName"/>
-        <input type="submit" value="Add account"/>
-    </form>
+
 
     <h3>Users:</h3>
     <ul>

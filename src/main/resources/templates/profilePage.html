@@ -1,19 +1,9 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" lang="en">
-<head th:replace="fragments/layout :: head"></head>
+<head th:replace="fragments/layout :: head(title='Profile of ...')"></head>
 <body>
 
-<nav class="navbar navbar-dark bg-dark justify-content-between">
-    <a class="navbar-brand">Navbar</a>
-    <span class="text">Tervetuloa, Käyttäjä X</span>
-    <span class="text">Seinä</span>
-    <span class="text">Profiili</span>
-    <span class="text">Ilmoitustaulu</span>
-    <form class="form-inline">
-        <input class="form-control mr-sm-2" type="search" placeholder="Anna käyttäjänimi" aria-label="Search">
-        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Etsi käyttäjää</button>
-    </form>
-</nav>
+<div th:replace="fragments/layout :: navi"></div>
 
     <h3 th:text="${account.realName}"></h3>
 

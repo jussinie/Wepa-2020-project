@@ -1,8 +1,11 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" lang="en">
-    <head th:replace="fragments/layout :: head"></head>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5" lang="en">
+<head th:replace="fragments/layout :: head(title='Posts')"></head>
+<body>
 
-    <body>
+<div th:replace="fragments/layout :: navi"></div>
+
+
     <div class="container">
         <h3>Habitants in the LinkedIn world</h3>
 
@@ -43,6 +46,15 @@
                 </th:block>
             </table>
         </div>
+
+        <div class="row" >
+            <div class="col-lg-10 col-md-6 mb-4" th:each="post : ${posts}">
+
+                <div th:replace="fragments/layout :: productCard">
+
+                </div>
+            </div>
+
             <p>
                 Postaaminen
                 Kirjautuneet käyttäjät voivat lähettää postauksia yhteisellä sivulla. Postaussivulla näkyy yhteydessä olevien henkilöiden postaukset. Jokaisesta viestistä näytetään viestin lähettäjän nimi, viestin lähetysaika, sekä viestin tekstimuotoinen sisältö. Viestit näytetään postauslistassa niiden saapumisjärjestyksessä siten, että postauslistassa näkyy aina korkeintaan 25 uusinta viestiä.

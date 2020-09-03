@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5" lang="en">
-<head th:fragment="head">
+<head th:fragment="head(title)">
     <meta charset="UTF-8">
-    <title>Index page</title>
+    <title th:text="${title}">Title</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"/>
     <link rel="stylesheet" th:href="@{/css/styles.css}"/>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
@@ -12,15 +12,54 @@
 <div th:fragment="navi">
     <nav class="navbar navbar-ligh justify-content-between" style="background-color: #e3f2fd;">
         <a class="navbar-brand">Navbar</a>
-        <span class="text">Tervetuloa, Käyttäjä X</span>
-        <span class="text">Seinä</span>
-        <span class="text">Profiili</span>
+        <span class="text"><a th:href="@{/}">Profile</a></span>
+        <span class="text"><a th:href="@{/accounts}">Users</a></span>
+        <span class="text"><a th:href="@{/posts}">Wall</a></span>
         <span class="text">Ilmoitustaulu</span>
         <form class="form-inline">
             <input class="form-control mr-sm-2" type="search" placeholder="Anna käyttäjänimi" aria-label="Search">
             <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Etsi käyttäjää</button>
         </form>
     </nav>
+</div>
+
+<div class="card h-100" th:fragment="productCard">
+    <!--<a href="#" th:href="@{'/product/'+${item.Id}}"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a> -->
+    <!--<a href="#" th:href="@{'/product/'+${item.Id}}">-->
+
+    <div class="card-body">
+        <h4 class="card-title">
+            <img th:src="@{/account_box_grey_24x24.png}" alt=""></a>
+            <a href="#" th:text="${post.account.UserName}">Item One</a>
+        </h4>
+        <h5 th:text="${post.postingTime}">$24.99</h5>
+        <p class="card-text" th:text="${post.content}">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur!</p>
+    </div>
+    <div class="card-footer">
+        <div class="row">
+            <div class="col">
+                <form th:action="@{/likes}" method="post">
+                    <input type="hidden" name="postIdOfLike" th:value="${post.id}"/>
+                    <input type="submit" name="submitLike" value="Like!"/>
+                </form>
+            </div>
+            <div class="col">
+                <form th:action="@{/comments}" method="post">
+                    <input type="text" name="commentContent"/>
+                    <input type="hidden" name="postId" th:value="${post.id}"/>
+                    <input type="submit" name="submitComment" value="Add comment" />
+                </form>
+            </div>
+            <div class="col">
+                <small class="text-muted">
+                    <span th:text="${post.postingTime}"></span></small>
+            </div>
+        </div>
+
+
+
+
+    </div>
 </div>
 
 </body>

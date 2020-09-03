@@ -49,6 +49,12 @@ public class DefaultController {
     PasswordEncoder passwordEncoder;
 
     @GetMapping("/")
+    public String registrate() {
+
+        return "registration";
+    }
+
+    @GetMapping("/profile")
     public String home(Model model) {
         model.addAttribute("skills", skillRepository.findAll());
         model.addAttribute("account", authenticationService.loggedInAccount());
@@ -66,7 +72,7 @@ public class DefaultController {
     }
 
 
-    @PostMapping("/")
+    @PostMapping("/profile")
     public String addSkill(@RequestParam String addedSkill) {
         skillRepository.save(new Skill(addedSkill, authenticationService.loggedInAccount()));
         return "redirect:/";
