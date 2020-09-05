@@ -62,15 +62,24 @@ public class DefaultController {
             model.addAttribute("profilePic", profilePictureRepository.findByUserId(authenticationService.getLoggedInId()));
         }
         model.addAttribute("requests", pendingRequestRepository.findAll());
+        model.addAttribute("accounts", accountRepository.findAll());
         return "index";
     }
 
     @GetMapping("/test")
     public String test(Model model) {
         model.addAttribute("requests", pendingRequestRepository.findAll());
+        model.addAttribute("accounts", accountRepository.findAll());
         return "test";
     }
 
+    // Alla testataan test-sivun toiminnallisuutta requestin hyväksymiseen tai poistamiseen
+
+    @PostMapping("/deleteRequest")
+    public String deleteConnection(@RequestParam Long deleteRequestId) {
+        pendingRequestRepository.delete(pendingRequestRepository.getOne(deleteRequestId));
+        return "redirect:/test";
+    }
 
     @PostMapping("/profile")
     public String addSkill(@RequestParam String addedSkill) {

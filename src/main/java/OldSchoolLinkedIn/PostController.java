@@ -28,12 +28,16 @@ public class PostController {
     AccountRepository accountRepository;
 
     @Autowired
+    PostLikeRepository postLikeRepository;
+
+    @Autowired
     AuthenticationService authenticationService;
 
     @GetMapping("/posts")
     public String showPosts(Model model) {
         model.addAttribute("posts", postService.list());
         model.addAttribute("comments", postCommentRepository.findAll());
+        model.addAttribute("postLikes", postLikeRepository.findAll());
         return "posts";
     }
 

@@ -5,12 +5,26 @@
 
 <div th:replace="fragments/layout :: navi"></div>
 
+<div id="pendingRequests">
     <p>Your pending requests:</p>
     <table>
         <tr th:each="request : ${requests}">
-            <td th:text="${request.accountAdded}"></td>
+            <td th:text="${request.AccountAddedBy.realName}"></td>
+            <td>
+                <form th:action="@{/addConnection}" method="post">
+                    <input type="hidden" value="addConnection">
+                    <input type="submit" value="Add">
+                </form>
+            </td>
+            <td>
+                <form th:action="@{/deleteRequest}" method="post">
+                    <input type="hidden" name="deleteRequestId" th:value="${request.id}">
+                    <input type="submit" value="Delete request">
+                </form>
+            </td>
         </tr>
     </table>
+</div>
 
 </body>
 </html>

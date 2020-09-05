@@ -35,6 +35,15 @@
                                 <input type="submit" name="submitLike" value="Like!"/>
                             </form>
                         </td>
+                        <td>
+
+                            <th:block th:each="postLike : ${postLikes}">
+                                <div th:if="${post.id} == ${postLike.post.id}">
+                                <span>Amount of likes: </span>
+                                <span th:text="${postLike.likes}"></span>
+                                </div>
+                            </th:block>
+                        </td>
                     </tr>
                     <tr th:each="comment : ${comments}">
                         <th:block th:if="${post.id} == ${comment.post.id}">
