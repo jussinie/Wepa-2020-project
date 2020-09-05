@@ -27,13 +27,14 @@
             </div>
 
             <div class="col-6" id="skills">
+                <h3>Skills</h3>
                 <table>
                     <tr th:each="skill : ${skills}">
                         <td th:text="${skill.skillName}"></td>
                     </tr>
 
                 </table>
-            <form th:action="@{/}" method="post">
+            <form th:action="@{/profile}" method="post">
                 <input type="text" name="addedSkill" />
                 <input type="submit" name="submit" value="Add skill"/>
             </form>

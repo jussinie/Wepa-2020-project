@@ -56,7 +56,7 @@ public class DefaultController {
 
     @GetMapping("/profile")
     public String home(Model model) {
-        model.addAttribute("skills", skillRepository.findAll());
+        model.addAttribute("skills", skillRepository.findByAccountId(authenticationService.getLoggedInId()));
         model.addAttribute("account", authenticationService.loggedInAccount());
         if (profilePictureRepository.findByUserId(authenticationService.getLoggedInId()) != null) {
             model.addAttribute("profilePic", profilePictureRepository.findByUserId(authenticationService.getLoggedInId()));
@@ -75,7 +75,7 @@ public class DefaultController {
     @PostMapping("/profile")
     public String addSkill(@RequestParam String addedSkill) {
         skillRepository.save(new Skill(addedSkill, authenticationService.loggedInAccount()));
-        return "redirect:/";
+        return "redirect:/profile";
     }
 
     @PostMapping("/likes")
