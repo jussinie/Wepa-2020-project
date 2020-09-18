@@ -19,22 +19,27 @@
                 </div>
             </div>
 
-            <div class="col-6" id="skills">
+            <div class="col" id="skills">
                 <h3>Skills</h3>
                 <table>
                     <tr th:each="skill : ${skills}">
                         <td th:text="${skill.skillName}"></td>
-                        <td>
-                            <form th:action="@{/likeSkill}" method="post">
-                                <input type="hidden" name="likeSkill">
+                      <td>
+                            <form th:action="@{/accounts/{accountName}(accountName=${account.accountName})}" method="post">
+                                <input type="hidden" name="likeSkillId" th:value="${skill.id}">
                                 <input type="submit" name="submit" value="Like!">
                             </form>
                         </td>
+                        <td th:if="${skill.amountOfLikes} > 0"> Likes: </td>
+                        <td th:if="${skill.amountOfLikes} > 0" th:text="${skill.amountOfLikes}" ></td>
                     </tr>
-
                 </table>
+            <p>Seuraavat toimenpiteet:</p>
+                <p>Vain yksi tykkäys per käyttäjä</p>
+                <p>Eli muokkaa skill like siten, että like-nappi näkyy vain jos ei ole painettu.</p>
+
             </div>
-        </div>
+
 
 
 <footer class="fixed-bottom bg-light">

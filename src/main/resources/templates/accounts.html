@@ -21,7 +21,15 @@
         </li>
     </ul>
 
-
+<div id="pendingRequests">
+    <p>Your pending requests:</p>
+    <table>
+        <tr th:each="request : ${requests}">
+            <td th:text="${request.AccountAddedBy.realName}"></td>
+            <td th:text="${request.AccountAddedBy.id}"></td>
+        </tr>
+    </table>
+</div>
 
 </body>
 </html>

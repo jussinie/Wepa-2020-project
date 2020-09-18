@@ -1,6 +1,6 @@
-package OldSchoolLinkedIn;
+package OldSchoolLinkedIn.posting;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import OldSchoolLinkedIn.accounts.Account;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -28,5 +28,6 @@ public class Post extends AbstractPersistable<Long> {
     private Account account;
     @OneToMany(mappedBy = "post")
     private List<PostLike> postLikes = new ArrayList<>();
+    private Long amountOfLikes;
 
 }

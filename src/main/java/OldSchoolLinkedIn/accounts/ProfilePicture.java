@@ -1,4 +1,4 @@
-package OldSchoolLinkedIn;
+package OldSchoolLinkedIn.accounts;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

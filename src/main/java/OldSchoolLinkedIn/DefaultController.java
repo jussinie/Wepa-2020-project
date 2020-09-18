@@ -1,22 +1,19 @@
 package OldSchoolLinkedIn;
 
+import OldSchoolLinkedIn.accounts.AccountRepository;
+import OldSchoolLinkedIn.accounts.ProfilePicture;
+import OldSchoolLinkedIn.accounts.ProfilePictureRepository;
+import OldSchoolLinkedIn.posting.*;
+import OldSchoolLinkedIn.security.AuthenticationService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.tools.FileObject;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Date;
 
 @Controller
 public class DefaultController {
@@ -83,7 +80,7 @@ public class DefaultController {
 
     @PostMapping("/profile")
     public String addSkill(@RequestParam String addedSkill) {
-        skillRepository.save(new Skill(addedSkill, authenticationService.loggedInAccount()));
+        skillRepository.save(new Skill(addedSkill, authenticationService.loggedInAccount(), new ArrayList<>(),Long.valueOf(0)));
         return "redirect:/profile";
     }
 

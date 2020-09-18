@@ -1,5 +1,7 @@
-package OldSchoolLinkedIn;
+package OldSchoolLinkedIn.security;
 
+import OldSchoolLinkedIn.accounts.Account;
+import OldSchoolLinkedIn.accounts.AccountRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;

@@ -1,5 +1,7 @@
-package OldSchoolLinkedIn;
+package OldSchoolLinkedIn.posting;
 
+import OldSchoolLinkedIn.accounts.Account;
+import OldSchoolLinkedIn.posting.Post;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

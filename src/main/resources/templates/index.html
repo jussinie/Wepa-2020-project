@@ -9,7 +9,7 @@
 
     <div class="container">
         <div class="row">
-            <div class="col-6">
+            <div class="col-6" id="profilePic">
                 <h3 th:text="${account.realName}"></h3>
                 <div sec:authorize="isAuthenticated()">
                     Authenticated as <span sec:authentication="name"></span></div>

@@ -36,13 +36,7 @@
                             </form>
                         </td>
                         <td>
-
-                            <th:block th:each="postLike : ${postLikes}">
-                                <div th:if="${post.id} == ${postLike.post.id}">
-                                <span>Amount of likes: </span>
-                                <span th:text="${postLike.likes}"></span>
-                                </div>
-                            </th:block>
+                            <p>Amount of likes: <span th:text="${post.amountOfLikes}"></span></p>
                         </td>
                     </tr>
                     <tr th:each="comment : ${comments}">

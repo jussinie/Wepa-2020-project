@@ -1,7 +1,9 @@
-package OldSchoolLinkedIn;
+package OldSchoolLinkedIn.accounts;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import OldSchoolLinkedIn.*;
+import OldSchoolLinkedIn.posting.Post;
+import OldSchoolLinkedIn.posting.PostComment;
+import OldSchoolLinkedIn.posting.PostLike;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -33,5 +35,16 @@ public class Account extends AbstractPersistable<Long> {
     private List<PendingRequest> accountsAdded = new ArrayList<>();
     @OneToMany(mappedBy = "accountAddedBy")
     private List<PendingRequest> accountsAddedBy = new ArrayList<>();
+    @OneToMany(mappedBy = "account")
+    private List<SkillLike> skillLikes = new ArrayList<>();
+
+    /*
+    @JoinTable(
+            name = "CONNECTIONS",
+            joinColumns = @JoinColumn(name="requesterId", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "addedId", referencedColumnName = "id")
+    )
+    private List<Account> testi = new ArrayList<>();
+ */
 
 }

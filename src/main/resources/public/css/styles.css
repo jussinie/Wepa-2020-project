@@ -1,0 +1,27 @@
+body {
+    margin-bottom: 60px;
+}
+
+.footer {
+    height: 40px;
+}
+
+img {
+    border-radius: 50%;
+}
+
+#skills {
+    background-color: red;
+}
+
+#skillLikes {
+    background-color: blue;
+}
+
+#profilePic {
+    background-color: grey;
+}
+
+#pendingRequests {
+    background-color: goldenrod;
+}
