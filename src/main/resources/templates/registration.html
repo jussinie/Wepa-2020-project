@@ -5,7 +5,34 @@
     <div th:replace="fragments/layout :: navi"></div>
 
     <p>Log in!</p>
+
+    <div id="registration">
     <p>Don't have account yet? Add account here:</p>
+    <form th:action="@{/registration}" method="post">
+        <table>
+            <tr>
+                <td><label for="username">Username</label></td>
+                <td><input type="text" name="username" id="username"/></td>
+            </tr>
+            <tr>
+                <td><label for="username">Password</label></td>
+                <td><input type="password" name="password" id="password"/></td>
+            </tr>
+            <tr>
+                <td><label for="username">Real name</label></td>
+                <td><input type="text" name="realName" id="realName"/></td>
+            </tr>
+            <tr>
+                <td><label for="username">Profile name (will be shown in URL</label></td>
+                <td><input type="text" name="accountName" id="accountName"/></td>
+            </tr>
+            <tr>
+                <td><input type="submit" value="Add account"/></td>
+            </tr>
+        </table>
+    </form>
+    </div>
+    <!--
     <form th:action="@{/registration}" method="post">
         <label for="username">Username</label>
         <input type="text" name="username" id="username"/>
@@ -16,6 +43,6 @@
         <label for="username">Profile name (will be shown in URL</label>
         <input type="text" name="accountName" id="accountName"/>
         <input type="submit" value="Add account"/>
-    </form>
+    </form> -->
     </body>
 </html>

@@ -40,11 +40,13 @@ public class PostController {
 
     @GetMapping("/posts")
     public String showPosts(Model model) {
-        List<Post> posts = postService.list();
+        List<Post> posts = postService.listPostsFromFriendsAndOwn();
         for (Post post : posts) {
             post.setAmountOfLikes(postLikeRepository.countByPostId(post.getId()));
             postRepository.save(post);
         }
+
+        // Postauslistassa tulee näkyä 25 uusinta viestiä YHTEYDESSÄ OLEVILTA HENKILÖILTÄ!
 
         model.addAttribute("posts", posts);
         //Tänne pitää tehdä listaus kommenteista, jotka ladataan - maksimissaan viisi per post

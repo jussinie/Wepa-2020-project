@@ -16,6 +16,42 @@
             </form>
         </div>
 
+        <ul th:each="post : ${posts}">
+            <li>
+                <table>
+                    <tr>
+                        <td th:text="${post.account.userName}"></td>
+                        <td th:text="${post.content}"></td>
+                    </tr>
+
+                </table>
+                <div th:text="${post.account.userName}"></div>
+                    <div th:text="${post.postingTime}"></div>
+                    <div th:text="${post.content}"></div>
+            </li>
+            <li>
+                    <form th:action="@{/likes}" method="post">
+                        <input type="hidden" name="postIdOfLike" th:value="${post.id}"/>
+                        <input type="submit" name="submitLike" value="Like!"/>
+                    </form>
+                    <p>Amount of likes: <span th:text="${post.amountOfLikes}"></span></p>
+                <form th:action="@{/comments}" method="post">
+                    <input type="text" name="commentContent"/>
+                    <input type="hidden" name="postId" th:value="${post.id}"/>
+                    <input type="submit" name="submitComment" value="Add comment" />
+                </form>
+            </li>
+            <ul th:each="comment : ${comments}">
+                <li th:if="${post.id} == ${comment.post.id}">
+                    <div th:text="${comment.account.userName}"></div>
+                    <div th:text="${comment.commentContent}"></div>
+                    <!-- <div th:text="${comment.post.id}"></div> -->
+
+                </li>
+            </ul>
+        </ul>
+
+        <!-- Tässä tehty rowta ja col käyttäen
         <div class="row">
             <table>
                 <th:block th:each="post : ${posts}">
@@ -36,7 +72,7 @@
                             </form>
                         </td>
                         <td>
-                            <p>Amount of likes: <span th:text="${post.amountOfLikes}"></span></p>
+                                <p>Amount of likes: <span th:text="${post.amountOfLikes}"></span></p>
                         </td>
                     </tr>
                     <tr th:each="comment : ${comments}">
@@ -48,16 +84,18 @@
                     </tr>
                 </th:block>
             </table>
-        </div>
+        </div> -->
 
+        <!-- Alla testiä bootstrapin card-toiminnallisuudella
         <div class="row" >
             <div class="col-lg-10 col-md-6 mb-4" th:each="post : ${posts}">
 
                 <div th:replace="fragments/layout :: productCard">
 
                 </div>
-            </div>
+            </div> -->
 
+        <p></p><br>
             <p>
                 Postaaminen
                 Kirjautuneet käyttäjät voivat lähettää postauksia yhteisellä sivulla. Postaussivulla näkyy yhteydessä olevien henkilöiden postaukset. Jokaisesta viestistä näytetään viestin lähettäjän nimi, viestin lähetysaika, sekä viestin tekstimuotoinen sisältö. Viestit näytetään postauslistassa niiden saapumisjärjestyksessä siten, että postauslistassa näkyy aina korkeintaan 25 uusinta viestiä.

@@ -6,30 +6,70 @@
 
 <div th:replace="fragments/layout :: navi"></div>
 
+<div class="row">
+    <div class="col-6">
 
-
-    <h3>Users:</h3>
-    <ul>
-        <li th:each="account : ${accounts}">
+        <h3>Requests sent for you: </h3>
+        <ul>
+            <li th:each="requestForYou : ${requestsForYou}">
             <img th:src="@{/account_box_grey_48x48.png}" class="rounded img-thumbnail" alt="Profile picture"/>
-            <a th:href="@{/accounts/{accountName}(accountName=${account.accountName})}" th:text="${account.realName}" ></a>
-            <form th:action="@{/accounts/request}" method="post">
-                <input type="hidden" name="addedId" th:value="${account.id}"/>
-                <input type="submit" value="Add as a contact"/>
+            <a th:href="@{/accounts/{accountName}(accountName=${requestForYou.accountName})}" th:text="${requestForYou.realName}" ></a>
+            <form th:action="@{/accounts/cancelRequest}" method="post">
+                <input type="hidden" name="cancelId" th:value="${requestForYou.id}"/>
+                <input type="submit" value="Delete request"/>
             </form>
-            <p th:text="${account.id}"></p>
-        </li>
-    </ul>
+                <form th:action="@{/accounts/acceptRequest}" method="post">
+                    <input type="hidden" name="acceptRequest" th:value="${requestForYou.id}"/>
+                    <input type="submit" value="Accept request"/>
+                </form>
+            </li>
+        </ul>
 
-<div id="pendingRequests">
-    <p>Your pending requests:</p>
-    <table>
-        <tr th:each="request : ${requests}">
-            <td th:text="${request.AccountAddedBy.realName}"></td>
-            <td th:text="${request.AccountAddedBy.id}"></td>
-        </tr>
-    </table>
+        <h3>Your pending requests:</h3>
+        <ul>
+            <li th:each="requestedAccount : ${requested}">
+                <img th:src="@{/account_box_grey_48x48.png}" class="rounded img-thumbnail" alt="Profile picture"/>
+                <a th:href="@{/accounts/{accountName}(accountName=${requestedAccount.accountName})}" th:text="${requestedAccount.realName}" ></a>
+                <form th:action="@{/accounts/removeRequest}" method="post">
+                    <input type="hidden" name="removedId" th:value="${requestedAccount.id}"/>
+                    <input type="submit" value="Remove pending request"/>
+                </form>
+            </li>
+        </ul>
+
+        <h3>Users:</h3>
+        <ul>
+            <li th:each="account : ${accounts}">
+                <img th:src="@{/account_box_grey_48x48.png}" class="rounded img-thumbnail" alt="Profile picture"/>
+                <a th:href="@{/accounts/{accountName}(accountName=${account.accountName})}" th:text="${account.realName}" ></a>
+                <form th:action="@{/accounts/addRequest}" method="post">
+                    <input type="hidden" name="addedId" th:value="${account.id}"/>
+                    <input type="submit" value="Add as a contact"/>
+                </form>
+            </li>
+        </ul>
+
+    <p>Laita seuraavaksi siten, että toinen ei voi lisätä pyyntöä jos on jo pendaamassa</p>
+
+    </div>
+    <div class="col-6">
+        <h3>Your friends:</h3>
+
+        <ul>
+            <li th:each="friend : ${friends}">
+                <img th:src="@{/account_box_grey_48x48.png}" class="rounded img-thumbnail" alt="Profile picture"/>
+                <a th:href="@{/accounts/{accountName}(accountName=${friend.accountAddedBy.accountName})}" th:text="${friend.accountAddedBy.realName}" ></a>
+                <form th:action="@{/accounts/removeFriend}" method="post">
+                    <input type="hidden" name="removedFriendId" th:value="${friend.accountAddedBy.id}"/>
+                    <input type="submit" value="Remove friend"/>
+                </form>
+            </li>
+        </ul>
+
+    </div>
+
 </div>
+
 
 </body>
 </html>

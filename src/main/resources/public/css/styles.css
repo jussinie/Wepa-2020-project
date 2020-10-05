@@ -10,6 +10,10 @@ img {
     border-radius: 50%;
 }
 
+ul {
+    list-style-type: none;
+}
+
 #skills {
     background-color: red;
 }
@@ -24,4 +28,10 @@ img {
 
 #pendingRequests {
     background-color: goldenrod;
+}
+
+#registration {
+    background-color: papayawhip;
+    width: 25%;
+    margin: auto;
 }

@@ -10,16 +10,18 @@
 <body>
 
 <div th:fragment="navi">
-    <nav class="navbar navbar-ligh justify-content-between" style="background-color: #e3f2fd;">
-        <a class="navbar-brand">Navbar</a>
-        <span class="text"><a th:href="@{/profile}">Profile</a></span>
-        <span class="text"><a th:href="@{/accounts}">Users</a></span>
-        <span class="text"><a th:href="@{/posts}">Wall</a></span>
-        <span class="text">Ilmoitustaulu</span>
-        <form class="form-inline">
-            <input class="form-control mr-sm-2" type="search" placeholder="Anna käyttäjänimi" aria-label="Search">
-            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Etsi käyttäjää</button>
-        </form>
+    <nav class="navbar navbar-dark justify-content-between" style="background-color: #283e4a;">
+        <div class="container">
+            <!-- <a class="navbar-brand">Navbar</a> -->
+            <form class="form-inline">
+                <input class="form-control mr-sm-2" type="search" placeholder="Anna käyttäjänimi" aria-label="Search">
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+            </form>
+            <span class="text"><img th:src="@{/home.png}"/> <a th:href="@{/profile}">Home</a></span>
+            <span class="text"><img th:src="@{/people.png}"/><a th:href="@{/accounts}">My Network</a></span>
+            <span class="text"><img th:src="@{/message.png}"/><a th:href="@{/posts}">Messaging</a></span>
+            <span class="text"><a th:href="@{/profile}">Me</a></span>
+        </div>
     </nav>
 </div>
 

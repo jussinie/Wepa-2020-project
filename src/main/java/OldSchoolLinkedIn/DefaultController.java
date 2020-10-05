@@ -6,6 +6,9 @@ import OldSchoolLinkedIn.accounts.ProfilePictureRepository;
 import OldSchoolLinkedIn.posting.*;
 import OldSchoolLinkedIn.security.AuthenticationService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -51,9 +54,27 @@ public class DefaultController {
         return "registration";
     }
 
-    @GetMapping("/profile")
+    @GetMapping("/home")
     public String home(Model model) {
-        model.addAttribute("skills", skillRepository.findByAccountId(authenticationService.getLoggedInId()));
+        Pageable firstPageable = PageRequest.of(0, 3, Sort.by("amountOfLikes").descending());
+        Pageable secondPageable = PageRequest.of(0, 6, Sort.by("amountOfLikes").descending());
+        model.addAttribute("top3skills", skillRepository.findByAccountId(authenticationService.getLoggedInId()));
+        model.addAttribute("otherSkills", skillRepository.findByAccountId(authenticationService.getLoggedInId()));
+        model.addAttribute("account", authenticationService.loggedInAccount());
+        if (profilePictureRepository.findByUserId(authenticationService.getLoggedInId()) != null) {
+            model.addAttribute("profilePic", profilePictureRepository.findByUserId(authenticationService.getLoggedInId()));
+        }
+        model.addAttribute("requests", pendingRequestRepository.findAll());
+        model.addAttribute("accounts", accountRepository.findAll());
+        return "home";
+    }
+
+    @GetMapping("/me")
+    public String me(Model model) {
+        Pageable firstPageable = PageRequest.of(0, 3, Sort.by("amountOfLikes").descending());
+        Pageable secondPageable = PageRequest.of(0, 6, Sort.by("amountOfLikes").descending());
+        model.addAttribute("top3skills", skillRepository.findByAccountId(authenticationService.getLoggedInId()));
+        model.addAttribute("otherSkills", skillRepository.findByAccountId(authenticationService.getLoggedInId()));
         model.addAttribute("account", authenticationService.loggedInAccount());
         if (profilePictureRepository.findByUserId(authenticationService.getLoggedInId()) != null) {
             model.addAttribute("profilePic", profilePictureRepository.findByUserId(authenticationService.getLoggedInId()));
@@ -86,7 +107,9 @@ public class DefaultController {
 
     @PostMapping("/likes")
     public String addLike(@RequestParam Long postIdOfLike) {
-        postLikeRepository.save(new PostLike(1, postRepository.getOne(postIdOfLike), authenticationService.loggedInAccount()));
+        if (postLikeRepository.findByPostAndAccount(postRepository.getOne(postIdOfLike), authenticationService.loggedInAccount()) == null) {
+            postLikeRepository.save(new PostLike(1, postRepository.getOne(postIdOfLike), authenticationService.loggedInAccount()));
+        }
         return "redirect:/posts";
     }
 
@@ -116,9 +139,30 @@ public class DefaultController {
         return "redirect:/";
     }
 
-    @PostMapping("/accounts/request")
+    @PostMapping("/accounts/addRequest")
     public String addRequest(@RequestParam Long addedId) {
-        pendingRequestRepository.save(new PendingRequest(accountRepository.getOne(Long.valueOf(1)), accountRepository.getOne(addedId),false));
+        pendingRequestRepository.save(new PendingRequest(accountRepository.getOne(addedId), accountRepository.getOne(authenticationService.getLoggedInId()),false));
+        return "redirect:/accounts";
+    }
+
+    @PostMapping("/accounts/removeRequest")
+    public String removeRequest(@RequestParam Long removedId) {
+        pendingRequestRepository.delete(pendingRequestRepository.findByAccountAddedIdAndAccountAddedById(removedId, authenticationService.getLoggedInId()));
+        return "redirect:/accounts";
+    }
+
+    @PostMapping("/accounts/cancelRequest")
+    public String cancelRequest(@RequestParam Long cancelId) {
+        pendingRequestRepository.delete(pendingRequestRepository.findByAccountAddedIdAndAccountAddedById(authenticationService.getLoggedInId(), cancelId));
+        return "redirect:/accounts";
+    }
+
+    @PostMapping("/accounts/acceptRequest")
+    public String acceptRequest(@RequestParam Long acceptRequest) {
+        // Tähän toiminnallisuus uuden rivin luomiseksi connections-tauluun!
+        PendingRequest pendingRequest = pendingRequestRepository.findByAccountAddedIdAndAccountAddedById(authenticationService.getLoggedInId(), acceptRequest);
+        pendingRequest.setAccepted(true);
+        pendingRequestRepository.save(pendingRequest);
         return "redirect:/accounts";
     }
 

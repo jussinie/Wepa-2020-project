@@ -43,8 +43,52 @@ public class AccountController {
 
     @GetMapping("/accounts")
     public String showAccounts(Model model) {
-        model.addAttribute("accounts", accountRepository.findByIdNot(authenticationService.getLoggedInId()));
-        model.addAttribute("requests", pendingRequestRepository.findAll());
+        //Tämä näyttää kaikki muut paitsi kirjautuneen käyttäjän
+        //Tehdään täällä lista renderöitävistä asioista
+        //Ensin ne, mitkä voidaan lisätä (jotka eivät ole pendingRequest-taulussa)
+        List<Account> otherAccounts = accountRepository.findByIdNot(authenticationService.getLoggedInId());
+        List<PendingRequest> pendingRequests = pendingRequestRepository.findAll();
+        List<Long> requestedIds = new ArrayList<>(); // Luodaan lista lisätyille id:lle
+        List<Account> renderedAccounts = new ArrayList<>(); // Luodaan lista renderöitäville, ei vielä lisätyille käyttäjille
+        List<Account> requestedAccounts = new ArrayList<>(); // Luodaan lista pyydetyille käyttäjille
+        List<PendingRequest> requestsForYou = pendingRequestRepository.findByAccountAddedId(authenticationService.getLoggedInId());
+        List<Long> idsWhoRequestedYou = new ArrayList<>();
+        List<Account> renderedRequestsForYou = new ArrayList<>();
+        List<PendingRequest> friendsRequests = new ArrayList<>();
+        List<Account> friends = new ArrayList<>();
+
+        // Seuraava luo listan käyttäjän lisäämistä id:stä
+        for (PendingRequest rq : pendingRequests) {
+            requestedIds.add(rq.getAccountAdded().getId());
+        }
+
+        // Tässä luodaan lista niistä id:stä, jotka ovat lisänneet rekisteröityneen käyttäjän
+        for (PendingRequest rqForYou : requestsForYou) {
+            idsWhoRequestedYou.add(rqForYou.getAccountAddedBy().getId());
+        }
+
+        // Tässä luodaan renderöitävä lista accounteista, jotka ovat lisänneet käyttäjän
+        for (Account account : otherAccounts) {
+            if (idsWhoRequestedYou.contains(account.getId())) {
+                renderedRequestsForYou.add(account);
+            }
+        }
+
+        // Tässä luodaan renderöitävä lista tileistä, jotka kirjautunut käyttäjä on lisännyt ja joita hän ei ole.
+        // Jälkimmäisestä on poistettava tili siinä tapauksessa, että kirjautunut käyttäjä on jo lisännyt sen.
+        for (Account account : otherAccounts) {
+            if (requestedIds.contains(account.getId())) {
+                requestedAccounts.add(account);
+            } else if (!requestedIds.contains(account.getId()) && !idsWhoRequestedYou.contains(account.getId())) {
+                renderedAccounts.add(account);
+            }
+        }
+
+        model.addAttribute("accounts", renderedAccounts);
+        model.addAttribute("requested", requestedAccounts);
+        model.addAttribute("requestsForYou", renderedRequestsForYou);
+        model.addAttribute("friends", pendingRequestRepository.findByAccepted(true));
+
         model.addAttribute("loggedInId", authenticationService.getLoggedInId());
         return "accounts";
     }
@@ -77,8 +121,11 @@ public class AccountController {
 
     @PostMapping("/accounts/{accountName}")
     public String likeSkill(@RequestParam Long likeSkillId) {
-        SkillLike like = new SkillLike(1, skillRepository.getOne(likeSkillId), authenticationService.loggedInAccount());
-        skillLikeRepository.save(like);
+        if (skillLikeRepository.findBySkillAndAccount(skillRepository.getOne(likeSkillId), authenticationService.loggedInAccount()) == null) {
+            SkillLike like = new SkillLike(1, skillRepository.getOne(likeSkillId), authenticationService.loggedInAccount());
+            skillLikeRepository.save(like);
+        }
         return "redirect:/accounts/{accountName}";
     }
+
 }
